@@ -13,4 +13,33 @@ public class ResultView {
     public static void nothing(){
         System.out.print("낫싱");
     }
+
+
+    public static boolean view(ResultValue resultValue){
+
+        if(resultValue.isEndGame()){
+            strikeCnt(resultValue.getStrike());
+            return true;
+        }
+
+        if(resultValue.getBall() > 0 && resultValue.getStrike() > 0){
+            ballCnt(resultValue.getBall());
+            strikeCnt(resultValue.getStrike());
+            return false;
+        }
+
+        if(resultValue.getBall() > 0 ){
+            ballCnt(resultValue.getBall());
+            return false;
+        }
+
+        if(resultValue.getStrike() > 0){
+            strikeCnt(resultValue.getStrike());
+            return false;
+        }
+
+        nothing();
+        return false;
+
+    }
 }

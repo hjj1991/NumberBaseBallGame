@@ -1,26 +1,34 @@
+import org.assertj.core.api.Assertions;
+import org.example.baseball.BallStatus;
 import org.example.baseball.BaseBall;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class BaseBallTest {
 
+    private BaseBall ball;
+
+    @BeforeEach
+    void setUp(){
+        ball = new BaseBall(1, 2);
+    }
+
 
     @Test
-    @DisplayName("정답을 맞춘경우 정상 작동한다.")
-    void isCollect_success() {
+    void strike() {
+        BallStatus ballStatus = ball.playGame(new BaseBall(1, 2));
+        Assertions.assertThat(ballStatus).isEqualTo(BallStatus.STRIKE);
+    }
 
-        // given
-        BaseBall baseBall = new BaseBall();
-        baseBall.getBaseBallValue().add(1);
-        baseBall.getBaseBallValue().add(2);
-        baseBall.getBaseBallValue().add(3);
+    @Test
+    void ball() {
+        BallStatus ballStatus = ball.playGame(new BaseBall(2, 2));
+        Assertions.assertThat(ballStatus).isEqualTo(BallStatus.BALL);
+    }
 
-        // when
-        String[] inputNum = {"1", "2", "3"};
-
-        // then
-        Assertions.assertTrue(baseBall.isCollect(inputNum));
-
+    @Test
+    void nothing() {
+        BallStatus ballStatus = ball.playGame(new BaseBall(1, 3));
+        Assertions.assertThat(ballStatus).isEqualTo(BallStatus.NOTHING);
     }
 }
